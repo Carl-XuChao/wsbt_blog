@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:state_manager/component/dog.dart';
 
 import '../component/bar.dart';
+import '../component/counter.dart';
 import '../component/foo.dart';
 import '../component/Scale_slider.dart';
 import '../view_model/dog_controller.dart';
@@ -22,6 +23,8 @@ class _MyHomePageState extends State<MyHomePage>
   final _dh = DoubleHolder(0);
 
   final _dogController = DogController();
+
+  final _counterController = CounterController();
 
   late final _controller = AnimationController(
     vsync: this,
@@ -47,70 +50,92 @@ class _MyHomePageState extends State<MyHomePage>
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: AnimatedBuilder(
-        animation: _controller,
-        builder: (BuildContext context, Widget? child) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text(
-                'You have pushed the button this many times:',
-              ),
-
-              // bar,
-
-              // ...foo,
-
-              // ...scaleSlider,
-
-              ...dog,
-
-            ],
-          ),
-        ),
+      // body: AnimatedBuilder(
+      //   animation: _controller,
+      //   builder: (BuildContext context, Widget? child) => Center(
+      //     child: content,
+      //   ),
+      // ),
+      body: Center(
+        child: content,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: (){
+          _counterController.reset();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
+
+  Widget get content => Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      const Text('You have pushed the button this many times:'),
+
+      // bar,
+
+      // ...foo,
+
+      // ...scaleSlider,
+
+      // ...dog,
+
+      ...counter,
+
+    ],
+  );
+
+
+
   Widget get bar => const Bar();
 
   List<Widget> get foo => [
-    Text(
-      '$_counter',
-      style: Theme.of(context).textTheme.headlineMedium,
-    ),
-    const Bar(),
-    Foo(
-      counter: _counter,
-      add: _add,
-    ),
-  ];
+        Text(
+          '$_counter',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const Bar(),
+        Foo(
+          counter: _counter,
+          add: _add,
+        ),
+      ];
 
   List<Widget> get scaleSlider => [
-    ScaledSlider(hb: _dh,),
-    ElevatedButton(
-      onPressed: () {
-        setState(() {
-          _dh.value = 1;
-        });
-      },
-      child: Text('set to 100%'),
-    ),
-  ];
-
+        ScaledSlider(
+          hb: _dh,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _dh.value = 1;
+            });
+          },
+          child: Text('set to 100%'),
+        ),
+      ];
 
   List<Widget> get dog => [
-    Dog(controller: _dogController),
+        Dog(controller: _dogController),
+        ElevatedButton(
+          onPressed: () {
+            _dogController.value = 1;
+          },
+          child: Text('set to 100%'),
+        ),
+      ];
+
+
+  List<Widget> get counter => [
+    Counter(controller: _counterController),
     ElevatedButton(
       onPressed: () {
-        _dogController.value = 1;
+        _counterController.reset();
       },
-      child: Text('set to 100%'),
+      child: const Text('clear'),
     ),
   ];
 
