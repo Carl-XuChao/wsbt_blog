@@ -56,32 +56,15 @@ class _MyHomePageState extends State<MyHomePage>
               const Text(
                 'You have pushed the button this many times:',
               ),
-              // Text(
-              //   '$_counter',
-              //   style: Theme.of(context).textTheme.headlineMedium,
-              // ),
-              // const Bar(),
-              // Foo(
-              //   counter: _counter,
-              //   add: _add,
-              // ),
-              // ScaledSlider(hb: _dh,),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       _dh.value = 1;
-              //     });
-              //   },
-              //   child: Text('set to 100%'),
-              // ),
 
-              Dog(controller: _dogController),
-              ElevatedButton(
-                onPressed: () {
-                  _dogController.value = 1;
-                },
-                child: Text('set to 100%'),
-              ),
+              // bar,
+
+              // ...foo,
+
+              // ...scaleSlider,
+
+              ...dog,
+
             ],
           ),
         ),
@@ -93,6 +76,44 @@ class _MyHomePageState extends State<MyHomePage>
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  Widget get bar => const Bar();
+
+  List<Widget> get foo => [
+    Text(
+      '$_counter',
+      style: Theme.of(context).textTheme.headlineMedium,
+    ),
+    const Bar(),
+    Foo(
+      counter: _counter,
+      add: _add,
+    ),
+  ];
+
+  List<Widget> get scaleSlider => [
+    ScaledSlider(hb: _dh,),
+    ElevatedButton(
+      onPressed: () {
+        setState(() {
+          _dh.value = 1;
+        });
+      },
+      child: Text('set to 100%'),
+    ),
+  ];
+
+
+  List<Widget> get dog => [
+    Dog(controller: _dogController),
+    ElevatedButton(
+      onPressed: () {
+        _dogController.value = 1;
+      },
+      child: Text('set to 100%'),
+    ),
+  ];
+
 }
 
 class DoubleHolder {
