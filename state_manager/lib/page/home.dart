@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:state_manager/component/dog.dart';
+import 'package:state_manager/component/pig.dart';
 
 import '../component/bar.dart';
 import '../component/counter.dart';
@@ -31,6 +32,8 @@ class _MyHomePageState extends State<MyHomePage>
     duration: const Duration(seconds: 2),
   )..repeat();
 
+  Color _childThemeColor = Colors.blue;
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -45,48 +48,53 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+    return MyColor(
+      color: _childThemeColor,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: Text(widget.title),
+        ),
+        // body: AnimatedBuilder(
+        //   animation: _controller,
+        //   builder: (BuildContext context, Widget? child) => Center(
+        //     child: content,
+        //   ),
+        // ),
+        body: Center(
+          child: content,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _childThemeColor = Colors.black;
+            });
+          },
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      // body: AnimatedBuilder(
-      //   animation: _controller,
-      //   builder: (BuildContext context, Widget? child) => Center(
-      //     child: content,
-      //   ),
-      // ),
-      body: Center(
-        child: content,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-
   Widget get content => Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      const Text('You have pushed the button this many times:'),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('You have pushed the button this many times:'),
 
-      // bar,
+          // bar,
 
-      // ...foo,
+          // ...foo,
 
-      // ...scaleSlider,
+          // ...scaleSlider,
 
-      // ...dog,
+          // ...dog,
 
-      ...counter,
+          // ...counter,
 
-    ],
-  );
-
-
+          pig,
+        ],
+      );
 
   Widget get bar => const Bar();
 
@@ -112,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage>
               _dh.value = 1;
             });
           },
-          child: Text('set to 100%'),
+          child: const Text('set to 100%'),
         ),
       ];
 
@@ -122,22 +130,22 @@ class _MyHomePageState extends State<MyHomePage>
           onPressed: () {
             _dogController.value = 1;
           },
-          child: Text('set to 100%'),
+          child: const Text('set to 100%'),
         ),
       ];
 
-
   List<Widget> get counter => [
-    Counter(controller: _counterController),
-    ElevatedButton(
-      onPressed: () {
-        _counterController.count.value = 0;
-        _counterController.fontSize.value = 18;
-      },
-      child: const Text('clear'),
-    ),
-  ];
+        Counter(controller: _counterController),
+        ElevatedButton(
+          onPressed: () {
+            _counterController.count.value = 0;
+            _counterController.fontSize.value = 18;
+          },
+          child: const Text('clear'),
+        ),
+      ];
 
+  Widget get pig => const Pig();
 }
 
 class DoubleHolder {
