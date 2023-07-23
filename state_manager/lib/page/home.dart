@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:state_manager/component/dog.dart';
 
 import '../component/bar.dart';
 import '../component/foo.dart';
-import '../component/per.dart';
+import '../component/Scale_slider.dart';
+import '../view_model/dog_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -18,6 +20,8 @@ class _MyHomePageState extends State<MyHomePage>
   int _counter = 0;
 
   final _dh = DoubleHolder(0);
+
+  final _dogController = DogController();
 
   late final _controller = AnimationController(
     vsync: this,
@@ -52,21 +56,29 @@ class _MyHomePageState extends State<MyHomePage>
               const Text(
                 'You have pushed the button this many times:',
               ),
-              Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              const Bar(),
-              Foo(
-                counter: _counter,
-                add: _add,
-              ),
-              Per(hb: _dh,),
+              // Text(
+              //   '$_counter',
+              //   style: Theme.of(context).textTheme.headlineMedium,
+              // ),
+              // const Bar(),
+              // Foo(
+              //   counter: _counter,
+              //   add: _add,
+              // ),
+              // ScaledSlider(hb: _dh,),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     setState(() {
+              //       _dh.value = 1;
+              //     });
+              //   },
+              //   child: Text('set to 100%'),
+              // ),
+
+              Dog(controller: _dogController),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    _dh.value = 1;
-                  });
+                  _dogController.value = 1;
                 },
                 child: Text('set to 100%'),
               ),

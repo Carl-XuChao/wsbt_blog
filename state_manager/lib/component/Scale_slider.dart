@@ -3,20 +3,17 @@ import 'package:flutter/material.dart';
 import '../page/home.dart';
 
 /// 定义对象类属性，地址引用
-class Per extends StatefulWidget {
-  Per({super.key, required this.hb});
+class ScaledSlider extends StatefulWidget {
+  ScaledSlider({super.key, required this.hb});
 
   DoubleHolder hb;
 
   @override
-  State<Per> createState() => _PerState();
+  State<ScaledSlider> createState() => _ScaledSliderState();
 }
 
-class _PerState extends State<Per> {
-
-
+class _ScaledSliderState extends State<ScaledSlider> {
   double get _sliderValue => widget.hb.value;
-
 
   @override
   Widget build(BuildContext context) {
