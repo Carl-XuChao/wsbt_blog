@@ -15,33 +15,27 @@ class _CounterState extends State<Counter> {
     print("Counter rebuild");
     return ElevatedButton(
       onPressed: () {
-        widget.controller.count++;
+        widget.controller.count.value++;
+        widget.controller.fontSize.value++;
       },
       child: ListenableBuilder(
-        listenable: widget.controller,
-        builder: (context, child) {
-          print("ListenableBuilder rebuild");
-          return Text(
-            'Counter:  ${widget.controller.count}',
-            style: const TextStyle(fontSize: 48),
-          );
-        }
-      ),
+          listenable: Listenable.merge([
+            widget.controller.count,
+            widget.controller.fontSize,
+          ]),
+          builder: (context, child) {
+            print("ListenableBuilder rebuild");
+            return Text(
+              'Counter:  ${widget.controller.count.value}',
+              style: TextStyle(fontSize: widget.controller.fontSize.value),
+            );
+          }),
     );
   }
 }
 
-class CounterController extends ChangeNotifier {
-  int _count = 0;
+class CounterController {
+  ValueNotifier<int> count = ValueNotifier(0);
 
-  int get count => _count;
-
-  set count(int newValue) {
-    _count = newValue;
-    notifyListeners();
-  }
-
-  void reset() {
-    count = 0;
-  }
+  ValueNotifier<double> fontSize = ValueNotifier(18);
 }
